@@ -1,11 +1,14 @@
 
 package com.mycompany.tanardiak;
 
+import java.text.Collator;
+import java.util.Comparator;
+
 /**
  *
  * @author Kriszti
  */
-public class Ember {
+public class Ember implements Comparable<Ember>{
 
 
     protected String nev;
@@ -37,6 +40,10 @@ public class Ember {
         this.azonosito = ID;
     }
 
+    public int compareTo(Ember e){
+        Collator col=Collator.getInstance();
+        return col.compare(this.nev,e.nev);
+    }
 
     public String toString() {
         return nev + " [" + azonosito + "]";
