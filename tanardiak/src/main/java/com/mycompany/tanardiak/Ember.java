@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 /**
  *
+ * 
  * @author Kriszti
  */
 public class Ember implements Comparable<Ember>{
