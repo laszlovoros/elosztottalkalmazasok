@@ -2,7 +2,8 @@ package com.mycompany.tanardiak;
 
 /**
  *
- * @author Kriszti Tanar osztaly, mely az Ember osztalybol oroklodik
+ * @author Kriszti 
+ * Tanár osztály, Ember osztályból öröklődik. Tantárgy változó
  */
 public class Tanar extends Ember {
 

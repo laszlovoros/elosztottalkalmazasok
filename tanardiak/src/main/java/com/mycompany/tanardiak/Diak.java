@@ -2,7 +2,8 @@ package com.mycompany.tanardiak;
 
 /**
  *
- * @author Kriszti Diak osztaly letrehozasa, mely az Ember osztalybol oroklodik
+ * @author Kriszti 
+ * Diák osztály, mely az Ember osztályból öröklődik. Átlag és osztály változók
  */
 public class Diak extends Ember {
 
