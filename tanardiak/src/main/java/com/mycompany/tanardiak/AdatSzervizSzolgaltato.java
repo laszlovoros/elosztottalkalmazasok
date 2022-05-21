@@ -15,7 +15,6 @@ import java.util.Vector;
  */
 
 public interface AdatSzervizSzolgaltato {
-    
     public String[] getEmberTipusok(); // visszaad egy kételemű tömböt az embertipusokkal (Tanár, Diák)
     
     public Vector <Ember> getEmberLista(); // visszaad egy Vectort, amit a GUI a JListhez csatolhat. Ebben lesznek az adatok.
@@ -37,7 +36,7 @@ public interface AdatSzervizSzolgaltato {
     Azok a paraméterek, amelyek nem relevánsak, lehetnek "" értékűek, vagy null-ok is.
     (pld. Tanár esetében az átlag nem releváns) */
     
-    public String modifyEmber(int emberTipusIndex,String nev,String azonosito,String targy,
+    public String modifyEmber(String nev,String azonosito,String targy,
             String osztaly,String atlag);
     /*Módosít egy meglevő Tanar vagy Diak objektumot a megadott adatok alapján
     Ellenőrzéseket végez, ha hiba van, akkor hibaüzenetet ad vissza, és nem módosítja az objektumot.
