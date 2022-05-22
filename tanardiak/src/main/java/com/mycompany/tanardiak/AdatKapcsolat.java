@@ -4,9 +4,8 @@ import java.util.Vector;
 
 /**
  *
- * @author Kriszti
- * AdatSzervizSzolgaltato interfész implementálása
- * a load,save,top3 funkciók nem működnek, de a GUI-t el lehet kezdeni fejleszteni ez alapján
+ * @author Kriszti AdatSzervizSzolgaltato interfész implementálása
+ * 
  */
 public class AdatKapcsolat implements AdatSzervizSzolgaltato {
 
@@ -163,11 +162,9 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
             valasz = valasz + t.toString() + " a listához hozzá lett adva!";
         }
         if (emberTipusIndex == 1) { // Diákról van szó
-            float atlag;
-            try {
-                atlag = Float.parseFloat(tanulmanyiAtlag);
-            } catch (NumberFormatException e) {
-                return "A tanulmányi átlag kitöltése kötelező!";
+            float atlag = getEllenorzottAtlag(tanulmanyiAtlag);
+            if (atlag < 1f) {
+                return "A tanulmányi átlag mezőben egy 1-5 tartomyánban levő szám szerepeljen!";
             }
             if (osztaly == null) {
                 valasz = "Az osztályt ki kellene tölteni!\n";
@@ -185,8 +182,36 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
         return valasz;
     }
 
-    public String modifyEmber(int emberTipusIndex, String nev, String azonosito, String targy,
-            String osztaly, String atlag) {
+    private Ember getEmberByAzonosito(String azonosito) {
+        Ember ember = null;
+        for (int i = 0; i < emberLista.size(); i++) {
+            ember = emberLista.get(i);
+            if (ember.getAzonosito().equals(azonosito)) {
+                return ember;
+            }
+        }
+        return ember;
+    }
+
+    private float getEllenorzottAtlag(String tanulmanyiAtlag) {
+        if (tanulmanyiAtlag == null) {
+            return -2f;
+        }
+        float atlag;
+        try {
+            atlag = Float.parseFloat(tanulmanyiAtlag);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+        if ((atlag > 5f) || (atlag < 1f)) {
+            return -1f;
+        }
+        return atlag;
+
+    }
+
+    public String modifyEmber(String azonosito, String nev, String targy,
+            String osztaly, String tanulmanyiAtlag) {
         // ellenőrízzük, hogy az azonosító létezik-e a listában.
         boolean talalt = false;
         for (int i = 0; i < emberLista.size(); i++) {
@@ -202,6 +227,28 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
             return "A név kitöltése kötelező";
         }
         String valasz = "";
+        Ember ember = getEmberByAzonosito(azonosito);
+        if (ember == null) {
+            return azonosito + " azonosítójú ember nem létezik a listában!";
+        }
+        if (getRealClass(ember).equals("Tanár")) {
+            Tanar tanar = (Tanar) ember;
+            valasz = "Módosítás történt " + tanar.toString() + "-ról";
+            tanar.setNev(nev);
+            tanar.setTargy(targy);
+            valasz = valasz + " " + tanar.toString() + "-ra.";
+        } else {
+            Diak diak = (Diak) ember;
+            float atlag = getEllenorzottAtlag(tanulmanyiAtlag);
+            if (atlag < 1f) {
+                return "A tanulmányi átlag mezőben egy 1-5 tartomyánban levő szám szerepeljen!";
+            }
+            valasz = "Módosítás történt " + diak.toString() + "-ról";
+            diak.setNev(nev);
+            diak.setOsztaly(osztaly);
+            diak.setAtlag(atlag);
+            valasz = valasz + " " + diak.toString() + "-ra.";
+        }
         return valasz;
     }
 
@@ -218,4 +265,18 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
         String[] vissza = {"", "", ""};
         return vissza;
     }
+
+    public int listaMeret() {
+        return emberLista.size();
+    }
+
+    public int getEmberTipusIndex(String emberTipus) {
+        for (int i = 0; i < emberTipusok.length; i++) {
+            if (emberTipusok[i].equals(emberTipus)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }
