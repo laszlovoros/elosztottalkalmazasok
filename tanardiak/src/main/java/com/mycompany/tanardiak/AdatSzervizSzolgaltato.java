@@ -14,6 +14,16 @@ import java.util.Vector;
  * osztálynak. A GUI ezeket a függvényeket fogja hívogatni a működése közben.
  */
 
+
+import java.io.File;
+import java.util.Vector;
+
+/**
+ *
+ * @author Laci
+ * Ez az interfész írja le, hogy miket kell csinálnia az adatmodellt kezelő
+ * osztálynak. A GUI ezeket a függvényeket fogja hívogatni a működése közben.
+ */
 public interface AdatSzervizSzolgaltato {
     public String[] getEmberTipusok(); // visszaad egy kételemű tömböt az embertipusokkal (Tanár, Diák)
     
@@ -46,10 +56,10 @@ public interface AdatSzervizSzolgaltato {
     
     public Diak[] top3Diak(String osztaly); // visszaadja az adott osztály 3 legjobb diákját
     
-    public String saveTop3(String osztaly); // lementi a megadott osztály 3 legjobb diákját. Sikerességről
+    public String saveTop3(String osztaly,File savepath); // lementi a megadott osztály 3 legjobb diákját. Sikerességről
     // üzenetet ad vissza
     
-    public Diak[] loadTop3(String fajlNev); //Megadott fajlnevet betölti, és a benne levő 3 diákot 
+    public Diak[] loadTop3(File fajl); //Megadott fajlnevet betölti, és a benne levő 3 diákot 
     //ArrayList-ben visszaadja
     
     public int listaMeret(); // Hány ember van a listánkban?
