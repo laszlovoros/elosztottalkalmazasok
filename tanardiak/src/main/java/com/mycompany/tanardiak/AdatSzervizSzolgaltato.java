@@ -44,12 +44,13 @@ public interface AdatSzervizSzolgaltato {
     Azok a paraméterek, amelyek nem relevánsak, lehetnek "" értékűek, vagy null-ok is.
     (pld. Tanár esetében az átlag nem releváns) */
     
-    public String[] top3Diak(String osztaly); // visszaadja az adott osztály 3 legjobb diákját
+    public Diak[] top3Diak(String osztaly); // visszaadja az adott osztály 3 legjobb diákját
     
     public String saveTop3(String osztaly); // lementi a megadott osztály 3 legjobb diákját. Sikerességről
     // üzenetet ad vissza
     
-    public String[] loadTop3(String fajlNev); //Megadott fajlnevet betölti, és a benne levő 3 diákot tömbben visszaadja
+    public Diak[] loadTop3(String fajlNev); //Megadott fajlnevet betölti, és a benne levő 3 diákot 
+    //ArrayList-ben visszaadja
     
     public int listaMeret(); // Hány ember van a listánkban?
     
