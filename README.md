@@ -15,34 +15,34 @@ Első build előtt a maven frissítése kell, az alábbi workarounddal:
 1. POM file frissítése
 
 alábbi kód beillesztése a properties záró eleme, és a project záróeleme közé:
-<pluginRepositories>
-   <pluginRepository> 
-    <id>maven2</id> 
-    <url>https://repo.maven.apache.org/maven2/</url> 
-  </pluginRepository> 
-</pluginRepositories>
+#<pluginRepositories>
+#   <pluginRepository> 
+#    <id>maven2</id> 
+#   <url>https://repo.maven.apache.org/maven2/</url> 
+#  </pluginRepository> 
+#</pluginRepositories>
 
 POM kinézete a beillesztés után:
 
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<groupId>com.mycompany</groupId>
-<artifactId>tanardiak</artifactId>
-<version>1.0-SNAPSHOT</version>
-<packaging>jar</packaging>
-<properties>
-<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<maven.compiler.source>1.8</maven.compiler.source>
-<maven.compiler.target>1.8</maven.compiler.target>
-</properties>
-<pluginRepositories>
-<pluginRepository>
-<id>maven2</id>
-<url>https://repo.maven.apache.org/maven2/</url>
-</pluginRepository>
-</pluginRepositories>
-</project>
+#<?xml version="1.0" encoding="UTF-8"?>
+#<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 #http://maven.apache.org/xsd/maven-4.0.0.xsd">
+#<modelVersion>4.0.0</modelVersion>
+#<groupId>com.mycompany</groupId>
+#<artifactId>tanardiak</artifactId>
+#<version>1.0-SNAPSHOT</version>
+#<packaging>jar</packaging>
+#<properties>
+#<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+#<maven.compiler.source>1.8</maven.compiler.source>
+#<maven.compiler.target>1.8</maven.compiler.target>
+#</properties>
+#<pluginRepositories>
+#<pluginRepository>
+#<id>maven2</id>
+#<url>https://repo.maven.apache.org/maven2/</url>
+#</pluginRepository>
+#</pluginRepositories>
+#</project>
 
 
 2. Alábbi Stackowrtflow instrukcók követése, 1. válasz:
