@@ -201,7 +201,7 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
                 return ember;
             }
         }
-        return ember;
+        return null;
     }
 
     private float getEllenorzottAtlag(String tanulmanyiAtlag) {
@@ -318,6 +318,15 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
             }
             oi.close();
             fi.close();
+            // azokat a diákokat, akik nem szerepelnek az emberek listájában, hozzáadjuk.
+            for (int i=0;i<3;i++){
+                if (top3[i]!=null){
+                    if (getEmberByAzonosito(top3[i].getAzonosito())==null){
+                        emberLista.add(top3[i]);
+                    } 
+                        
+                }
+            }
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         } catch (IOException e) {
