@@ -1,11 +1,15 @@
 package com.mycompany.tanardiak;
 
+import java.io.Serializable;
+import java.text.Collator;
+import java.util.Comparator;
+
 /**
  *
- * @author Kriszti 
- * Diák osztály, mely az Ember osztályból öröklődik. Átlag és osztály változók
+ * @author Kriszti Diák osztály, mely az Ember osztályból öröklődik. Átlag és
+ * osztály változók
  */
-public class Diak extends Ember {
+public class Diak extends Ember implements Serializable {
 
     private String osztaly;
     private float atlag;
@@ -33,7 +37,16 @@ public class Diak extends Ember {
     }
 
     public String toString() {
-        return nev + " [" + azonosito + ";" + osztaly + ";" + atlag + "]";
+        return nev + " [ID:" + azonosito + "; Osztály:" + osztaly + "; Átlag:" + atlag + "]";
+    }
+
+    public static Comparator AtlagRendezo() {
+        return new AtlagComparator();
+    }
+
+    public int compareTo(Ember e) {
+        Collator col = Collator.getInstance();
+        return col.compare(this.nev, e.nev);
     }
 
 }

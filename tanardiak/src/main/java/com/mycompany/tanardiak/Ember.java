@@ -1,17 +1,15 @@
-
 package com.mycompany.tanardiak;
 
+import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
 
 /**
  *
- * 
- * @author Kriszti
- * Ember ősosztály, név és azonosító változóval
+ *
+ * @author Kriszti Ember ősosztály, név és azonosító változóval
  */
-public class Ember implements Comparable<Ember>{
-
+public class Ember implements Serializable, Comparable<Ember> {
 
     protected String nev;
     protected String azonosito;
@@ -41,18 +39,17 @@ public class Ember implements Comparable<Ember>{
         this.nev = name;
         this.azonosito = ID;
     }
-    
-     public static Comparator AzonositoRendezo(){
+
+    public static Comparator AzonositoRendezo() {
         return new AzonositoComparator();
     }
-    
-    public int compareTo(Ember e){
-        Collator col=Collator.getInstance();
-        return col.compare(this.nev,e.nev);
+
+    public int compareTo(Ember e) {
+        Collator col = Collator.getInstance();
+        return col.compare(this.nev, e.nev);
     }
 
     public String toString() {
         return nev + " [" + azonosito + "]";
     }
 }
-

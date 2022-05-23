@@ -1,11 +1,20 @@
 package com.mycompany.tanardiak;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 /**
  *
  * @author Kriszti AdatSzervizSzolgaltato interfész implementálása
- * 
+ *
  */
 public class AdatKapcsolat implements AdatSzervizSzolgaltato {
 
@@ -133,7 +142,7 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
 
     public String addNewEmber(int emberTipusIndex, String nev, String azonosito, String targy,
             String osztaly, String tanulmanyiAtlag) {
-        String valasz = null;
+        String valasz = "";
         if (nev == null) {
             return "A név megadása kötelező!";
         } else if (nev.equals("")) {
@@ -152,11 +161,13 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
                 valasz = "A tantárgyat ki kellene tölteni!\n";
                 targy = "";
             }
+
             if (targy.equals("")) {
                 if (valasz == null) {
                     valasz = "A tantárgyat ki kellene tölteni!\n";
                 }
             }
+
             Tanar t = new Tanar(nev, azonosito, targy);
             emberLista.add(t);
             valasz = valasz + t.toString() + " a listához hozzá lett adva!";
@@ -252,18 +263,71 @@ public class AdatKapcsolat implements AdatSzervizSzolgaltato {
         return valasz;
     }
 
-    public String[] top3Diak(String osztaly) {
-        String[] vissza = {"", "", ""};
+    public Diak[] top3Diak(String osztaly) {
+        ArrayList<Diak> osztalyLista = new ArrayList<>();
+        for (int i = 0; i < emberLista.size(); i++) {
+            Ember ember = emberLista.get(i);
+            if (getRealClass(ember).equals("Diák")) {
+                Diak diak = (Diak) ember;
+                if (diak.getOsztaly().equals(osztaly)) {
+                    osztalyLista.add(diak);
+                }
+            }
+            Collections.sort(osztalyLista, new AtlagComparator());
+        }
+        Diak[] vissza = {null, null, null};
+        for (int i = 0; i < osztalyLista.size(); i++) {
+            if (i < 3) {
+                vissza[i] = osztalyLista.get(i);
+            }
+        }
         return vissza;
     }
 
-    public String saveTop3(String osztaly) {
-        return "";
+    public String saveTop3(String osztaly, File savePath) {
+        Diak[] top3 = top3Diak(osztaly);
+        try {
+            FileOutputStream f = new FileOutputStream(savePath);
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            for (int i = 0; i < 3; i++) {
+                if (top3[i] != null) {
+                    o.writeObject(top3[i]);
+                }
+            }
+            o.close();
+            f.close();
+        } catch (FileNotFoundException e) {
+            return ("File not found");
+        } catch (IOException e) {
+            return ("Error initializing stream");
+        }
+        return savePath.getName() + " elmentve.";
     }
 
-    public String[] loadTop3(String fajlNev) {
-        String[] vissza = {"", "", ""};
-        return vissza;
+    public Diak[] loadTop3(File fajl) {
+        Diak[] top3 = {null, null, null};
+        try {
+            FileInputStream fi = new FileInputStream(fajl);
+            ObjectInputStream oi = new ObjectInputStream(fi);
+            top3[0] = (Diak) oi.readObject();
+            if (top3[0] != null) {
+                top3[1] = (Diak) oi.readObject();
+            }
+            if (top3[1] != null) {
+                top3[2] = (Diak) oi.readObject();
+            }
+            oi.close();
+            fi.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return top3;
     }
 
     public int listaMeret() {

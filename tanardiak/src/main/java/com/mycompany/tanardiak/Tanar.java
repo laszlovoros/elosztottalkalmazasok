@@ -2,8 +2,7 @@ package com.mycompany.tanardiak;
 
 /**
  *
- * @author Kriszti 
- * Tanár osztály, Ember osztályból öröklődik. Tantárgy változó
+ * @author Kriszti Tanár osztály, Ember osztályból öröklődik. Tantárgy változó
  */
 public class Tanar extends Ember {
 
@@ -23,7 +22,7 @@ public class Tanar extends Ember {
     }
 
     public String toString() {
-        return nev + " [" + azonosito + ";" + targy + "]";
+        return nev + " [ID:" + azonosito + "; Tantárgy:" + targy + "]";
     }
 
 }
